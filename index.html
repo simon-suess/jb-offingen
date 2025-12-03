@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Junge B&uuml;rger Offingen | Kommunalwahl 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #143b79;
+      --mid-blue: #1f5aa6;
+      --navy: #0b1f3a;
+      --gold: #f2b705;
+      --sand: #f7f2e7;
+      --text: #0b1f3a;
+      --muted: #4a5a73;
+      --card: #0f2242;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Work Sans', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: #f9fbff;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    header.hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--blue), var(--mid-blue));
+      color: #fff;
+      padding: 24px;
+      isolation: isolate;
+    }
+    header.hero::before, header.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(242,183,5,0.92), rgba(242,183,5,0));
+      clip-path: polygon(70% 0, 100% 0, 100% 100%, 45% 100%);
+      z-index: 0;
+    }
+    header.hero::after {
+      background: radial-gradient(circle at 80% 30%, rgba(255,255,255,0.16), transparent 40%);
+      clip-path: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      letter-spacing: 0.01em;
+      font-weight: 600;
+    }
+    .brand img { width: 72px; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+    .hero-text h1 {
+      font-family: 'Space Grotesk', 'Work Sans', system-ui, sans-serif;
+      margin: 12px 0 8px;
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.15;
+    }
+    .hero-text p { margin: 0 0 18px; max-width: 620px; color: rgba(255,255,255,0.92); }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+    .btn.primary {
+      background: #fff;
+      color: var(--text);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+    .btn.secondary {
+      border-color: rgba(255,255,255,0.4);
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 45px rgba(0,0,0,0.2); }
+    .btn svg { margin-right: 8px; }
+    .hero-photo {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+      min-height: 260px;
+    }
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .social a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+      font-weight: 600;
+    }
+    .social a:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.18);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+    }
+    .social svg { flex-shrink: 0; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    main { padding: 56px 20px 72px; }
+    .section {
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+    .section h2 {
+      font-family: 'Space Grotesk', 'Work Sans', system-ui, sans-serif;
+      margin: 0 0 18px;
+      font-size: clamp(28px, 3vw, 34px);
+      color: var(--navy);
+      letter-spacing: 0.01em;
+    }
+    .section p { margin: 0 0 16px; color: var(--muted); }
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 28px rgba(12,31,58,0.12);
+      border: 1px solid rgba(12,31,58,0.08);
+    }
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: var(--text);
+    }
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .list li {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .list .icon {
+      height: 38px;
+      width: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffe9a6, var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.18);
+    }
+    .list .icon img {
+      width: 30px;
+      height: 30px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .candidate {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(12,31,58,0.08);
+      box-shadow: 0 12px 26px rgba(12,31,58,0.12);
+      align-items: center;
+      transition: transform 160ms ease, box-shadow 200ms ease, border-color 160ms ease;
+      cursor: pointer;
+    }
+    .candidate:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(12,31,58,0.16); }
+    .candidate:focus-visible { outline: 2px solid var(--mid-blue); outline-offset: 4px; }
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(20,59,121,0.12);
+      background: linear-gradient(135deg, #fff, #eef3fb);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .cand-meta .name {
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: var(--blue);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+    .badge {
+      background: #fcefc3;
+      color: #8a5a00;
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .detail { color: var(--muted); font-size: 14px; line-height: 1.4; }
+    .cta {
+      text-align: center;
+      background: linear-gradient(145deg, var(--blue), var(--mid-blue));
+      color: #fff;
+      border-radius: 18px;
+      padding: 28px 20px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+    }
+    .feedback {
+      background: linear-gradient(145deg, var(--blue), var(--mid-blue));
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 38px rgba(12,31,58,0.22);
+      border-radius: 18px;
+      padding: 22px;
+      display: grid;
+      gap: 12px;
+    }
+    .feedback label {
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+    .feedback textarea, .feedback input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.22);
+      font: inherit;
+      resize: vertical;
+      min-height: 110px;
+      background: rgba(255,255,255,0.96);
+      color: var(--text);
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .feedback small { color: rgba(255,255,255,0.82); }
+    .feedback .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .candidate-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(11,31,58,0.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+      z-index: 10;
+    }
+    .candidate-modal.open { opacity: 1; pointer-events: auto; }
+    .candidate-modal .modal-content {
+      background: #fff;
+      color: var(--text);
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+      border: 1px solid rgba(12,31,58,0.08);
+      width: min(650px, 100%);
+      padding: 28px 26px 24px;
+      position: relative;
+    }
+    .candidate-modal .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border: none;
+      background: rgba(0,0,0,0.04);
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      transition: background 140ms ease;
+    }
+    .candidate-modal .modal-close:hover { background: rgba(0,0,0,0.08); }
+    .candidate-detail {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .candidate-detail .avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+    }
+    .candidate-detail .name { font-size: 19px; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 18px 12px 26px;
+      font-size: 14px;
+    }
+    footer a { color: inherit; font-weight: 600; }
+    @media (max-width: 680px) {
+      header.hero { padding: 20px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .list li { grid-template-columns: 28px 1fr; }
+      .person img { height: 200px; }
+      .candidate-detail {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+      .candidate-detail .name { justify-content: center; }
+      .candidate-detail .avatar { width: 160px; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="brand">
+          <img loading="lazy" src="images/Logo.jpeg" alt="JBO Logo">
+          <span>Junge B&uuml;rger Offingen &middot; Kommunalwahl 2026</span>
+        </div>
+        <h1>Zukunft w&auml;hlen. Heimat gestalten.</h1>
+        <p>Wir stehen f&uuml;r eine junge, verbindende Kommunalpolitik in Offingen: transparent, l&ouml;sungsorientiert und nah an euren Anliegen.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#about">Unsere Ziele</a>
+          <a class="btn secondary" href="#team">Lerne unser Team kennen</a>
+        </div>
+        <div class="social" aria-label="Social Media">
+          <a href="https://www.instagram.com/jbo_jungebuergeroffingen" target="_blank" rel="noreferrer noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="#fff"/>
+            </svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/jboffingen" target="_blank" rel="noreferrer noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+              <path d="M13.5 21v-7h2.5l.5-3.5H13.5V8.5c0-.99.33-1.5 1.7-1.5H17V4.1C16.14 4.03 15.28 4 14.43 4 11.72 4 10 5.5 10 8.1V10.5H7.5V14H10v7h3.5Z"/>
+            </svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img loading="lazy" src="images/groupPhoto1.webp" alt="Junge B&uuml;rger Offingen Gruppenfoto">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="about">
+      <h2>Wof&uuml;r wir stehen</h2>
+      <p>Aus Ideen werden Projekte: Die Junge B&uuml;rger Offingen (JBO) haben bereits viel angesto&szlig;en und treiben Offingen weiter voran. Hier findest du unsere bisherigen Erfolge und die n&auml;chsten Etappenziele.</p>
+      <div class="grid-two">
+        <div class="card">
+          <h3>Was wir erreicht haben</h3>
+          <ul class="list">
+            <li><span class="icon"><img src="icons/street.svg" alt=""></span><span>Sanierung und Erweiterung der Stra&szlig;e zum Sportplatz (Antrag durch JBO)</span></li>
+            <li><span class="icon"><img src="icons/smartphone.svg" alt=""></span><span>B&uuml;rgerApp &ndash; Digitalisierung kommunaler Informationen</span></li>
+            <li><span class="icon"><img src="icons/bahn.svg" alt=""></span><span>Wiederbelebung des Bahnhofsgeb&auml;udes</span></li>
+            <li><span class="icon"><img src="icons/familie.svg" alt=""></span><span>Familienfreundlichkeit im Neubaugebiet Ermle IV</span></li>
+            <li><span class="icon"><img src="icons/car.svg" alt=""></span><span>Zone 30 um den Kindergarten</span></li>
+            <li><span class="icon"><img src="icons/music.svg" alt=""></span><span>Bau einer Musikschule</span></li>
+            <li><span class="icon"><img src="icons/wave.svg" alt=""></span><span>Erlebbare Natur an der Donau</span></li>
+            <li><span class="icon"><img src="icons/smartphone.svg" alt=""></span><span>Durchf&uuml;hrung von Handysprechstunden als Generationenverstängignung</span></li>
+            <li><span class="icon"><img src="icons/playground.svg" alt=""></span><span>Sanierung einiger Spielpl&auml;tze</span></li>
+          </ul>
+        </div>
+        <div class="card" id="goals">
+          <h3>Unsere Ziele</h3>
+          <ul class="list">
+            <li><span class="icon"><img src="icons/wave.svg" alt=""></span><span>Maßnahmen zur Hochwasserprävention</span></li>
+            <li><span class="icon"><img src="icons/doctor.svg" alt=""></span><span>Sicherstellung haus&auml;rztlicher Versorgung</span></li>
+            <li><span class="icon"><img src="icons/bahn.svg" alt=""></span><span>Bahnhof aufwerten &ndash; Mobilit&auml;tskonzept und Sanierung</span></li>
+            <li><span class="icon"><img src="icons/toilet.svg" alt=""></span><span>Sanierung der Sanit&auml;ranlagen im Geb&auml;ude der Grundschule</span></li>
+            <li><span class="icon"><img src="icons/nature.svg" alt=""></span><span>Klima- und Naturschutz zur&uuml;ck in den Fokus</span></li>
+            <li><span class="icon"><img src="icons/bitcoin.svg" alt=""></span><span>Generationengerechte Finanzplanung</span></li>
+            <li><span class="icon"><img src="icons/energy.svg" alt=""></span><span>Sicherung von sauberer bezahlbarer Energie</span></li>
+            <li><span class="icon"><img src="icons/climber.svg" alt=""></span><span>Sicherung von Sportangeboten durch Aufwertung der Mindelhalle</span></li>
+            <li><span class="icon"><img src="icons/lamp.svg" alt=""></span><span>Sicherheit durch mehr Beleuchtung an Freizeitanlagen (z. B. Skatepark)</span></li>
+            <li><span class="icon"><img src="icons/playground.svg" alt=""></span><span>Weitere Aufwertung der Spielplatzlandschaft im Ort</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <h2>Unsere Liste f&uuml;r Offingen</h2>
+      <p>Alter, Beruf, Engagement und Listenplatz auf einen Blick.</p>
+      <div class="team-grid">
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/OlahMichael.png" alt="Michael Olah"></div>
+          <div class="cand-meta">
+            <div class="name">Michael Olah <span class="tag">LP1</span></div>
+            <div class="detail"><span class="badge">38 Jahre</span></div>
+            <div class="detail">verheiratet, zwei Kinder</div>
+            <div class="detail">Projektleiter IT, M.Sc.</div>
+            <div class="detail">Festausschussvorsitzender</div>
+            <div class="detail">Obstbaumanwart im OGV</div>
+          </div>
+        </div>
+        <div class="candidate">
+            <div class="avatar"><img loading="lazy" src="images/DirrLuca.png" alt="Luca Dirr Sperandio"></div>
+          <div class="cand-meta">
+            <div class="name">Luca Dirr Sperandio <span class="tag">LP2</span></div>
+            <div class="detail"><span class="badge">31 Jahre</span></div>
+            <div class="detail">verheiratet, ein Kind</div>
+            <div class="detail">Gebietsverkaufsleiter</div>
+            <div class="detail">M.Sc. Circular Economy</div>
+            <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/VogelSarah.png" alt="Sarah Vogel"></div>
+          <div class="cand-meta">
+            <div class="name">Sarah Vogel <span class="tag">LP3</span></div>
+            <div class="detail"><span class="badge">35 Jahre</span></div>
+            <div class="detail">verheiratet, zwei Kinder</div>
+            <div class="detail">Stellv. Einrichtungsleitung</div>
+            <div class="detail">Johanniter Kinderhaus Gl&uuml;cksstern Offingen</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/Ma╠êusleFelix.png" alt="Felix M&auml;usle"></div>
+          <div class="cand-meta">
+            <div class="name">Felix M&auml;usle <span class="tag">LP4</span></div>
+            <div class="detail"><span class="badge">27 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Projektplaner Instandh., B.Ing.</div>
+            <div class="detail">JuZe Offingen</div>
+            <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/Su╠ê├ƒJonas.png" alt="Jonas S&uuml;&szlig;"></div>
+          <div class="cand-meta">
+            <div class="name">Jonas S&uuml;&szlig; <span class="tag">LP5</span></div>
+            <div class="detail"><span class="badge">25 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Landwirt</div>
+            <div class="detail">1. Vorstand Big Foot Club Offingen</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/KargFabian.png" alt="Fabian Karg"></div>
+          <div class="cand-meta">
+            <div class="name">Fabian Karg <span class="tag">LP6</span></div>
+            <div class="detail"><span class="badge">27 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Umwelt- und Energiemanager, B.Ing.</div>
+            <div class="detail">2. Vorstand Big Foot Club Offingen</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/SmolkaStefan.png" alt="Stefan Smolka"></div>
+          <div class="cand-meta">
+            <div class="name">Stefan Smolka <span class="tag">LP7</span></div>
+            <div class="detail"><span class="badge">32 Jahre</span></div>
+            <div class="detail">verheiratet</div>
+            <div class="detail">Abteilungsleiter Vertrieb</div>
+            <div class="detail">Trainer 1. Mannschaft TSV Offingen Abt. Fu&szlig;ball</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/KargJannik.png" alt="Jannik Karg"></div>
+          <div class="cand-meta">
+            <div class="name">Jannik Karg <span class="tag">LP8</span></div>
+            <div class="detail"><span class="badge">25 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Konstruktionsmechaniker</div>
+            <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
+            <div class="detail">JuZe Offingen</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/Su╠ê├ƒSimon.png" alt="Simon S&uuml;&szlig;"></div>
+          <div class="cand-meta">
+            <div class="name">Simon S&uuml;&szlig; <span class="tag">LP9</span></div>
+            <div class="detail"><span class="badge">21 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Softwareentwickler, B.Sc.</div>
+            <div class="detail">Kassenwart Big Foot Club</div>
+            <div class="detail">Leo-Club G&uuml;nzburg</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/DirlmeierJulia.png" alt="Julia Dirlmeier"></div>
+          <div class="cand-meta">
+            <div class="name">Julia Dirlmeier <span class="tag">LP10</span></div>
+            <div class="detail"><span class="badge">28 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Personalreferentin</div>
+            <div class="detail">TSV Offingen Abt. Tennis</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/Su╠ê├ƒSelena.png" alt="Selena S&uuml;&szlig;"></div>
+          <div class="cand-meta">
+            <div class="name">Selena S&uuml;&szlig; <span class="tag">LP11</span></div>
+            <div class="detail"><span class="badge">22 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Erzieherin</div>
+            <div class="detail">Vorstandsmitglied Big Foot Club Offingen</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/GrimmJohanna.png" alt="Johanna Grimm"></div>
+          <div class="cand-meta">
+            <div class="name">Johanna Grimm <span class="tag">LP12</span></div>
+            <div class="detail"><span class="badge">19 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Studentin Physiotherapie</div>
+            <div class="detail">Kapit&auml;n Damenmannschaft</div>
+            <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/EberleFlorian.png" alt="Florian Eberle"></div>
+          <div class="cand-meta">
+            <div class="name">Florian Eberle <span class="tag">LP13</span></div>
+            <div class="detail"><span class="badge">32 Jahre</span></div>
+            <div class="detail">verheiratet</div>
+            <div class="detail">Handelsfachwirt (Vertrieb)</div>
+            <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/WittmannJohannes.png" alt="Johannes Wittmann"></div>
+          <div class="cand-meta">
+            <div class="name">Johannes Wittmann <span class="tag">LP14</span></div>
+            <div class="detail"><span class="badge">25 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Projektleiter Geb&auml;udetechnik</div>
+            <div class="detail">Vorstand Musikverein Lyra Offingen</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/LintnerJo╠êrg.png" alt="J&ouml;rg Lintner"></div>
+          <div class="cand-meta">
+            <div class="name">J&ouml;rg Lintner <span class="tag">LP15</span></div>
+            <div class="detail"><span class="badge">35 Jahre</span></div>
+            <div class="detail">verheiratet, ein Kind</div>
+            <div class="detail">Meister Elektrotechnik</div>
+          </div>
+        </div>
+        <div class="candidate">
+          <div class="avatar"><img loading="lazy" src="images/RichterJonas.png" alt="Jonas Richter"></div>
+          <div class="cand-meta">
+            <div class="name">Jonas Richter <span class="tag">LP16</span></div>
+            <div class="detail"><span class="badge">20 Jahre</span></div>
+            <div class="detail">ledig</div>
+            <div class="detail">Student Geoinformatik</div>
+            <div class="detail">1. Vorstand JuZe Offingen</div>
+            <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 id="feedback">Deine Idee f&uuml;r Offingen</h2>
+      <p>Schick uns deine Anregungen &ndash; wir bringen sie in die Arbeit ein.</p>
+      <form class="feedback" id="feedback-form">
+        <label for="feedback-text">Vorschlag oder Anliegen</label>
+        <textarea id="feedback-text" name="message" placeholder="Was k&ouml;nnen wir besser machen?"></textarea>
+        <div class="actions">
+          <button type="submit" class="btn primary">Senden</button>
+          <small>Hinweis: Dein Mail-Programm &ouml;ffnet sich. Falls nicht, schick deine Idee direkt an jungebuergeroffingen@web.de.</small>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="candidate-modal" id="candidate-modal" aria-hidden="true" role="dialog">
+    <div class="modal-content">
+      <button class="modal-close" type="button" aria-label="Schließen">×</button>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div>Junge B&uuml;rger Offingen &middot; Offingen, Bayern</div>
+    <div>Gestaltet nach unserem Kommunalwahl-Flyer 2026.</div>
+    <div><a href="impressum.html">Impressum</a></div>
+  </footer>
+  <script>
+    (function() {
+      const form = document.getElementById('feedback-form');
+      const textarea = document.getElementById('feedback-text');
+      const mail = 'jungebuergeroffingen@web.de';
+      if (form && textarea) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const text = textarea.value.trim();
+          if (!text) {
+            textarea.focus();
+            return;
+          }
+          const subject = encodeURIComponent('Idee fuer Offingen');
+          const body = encodeURIComponent(text);
+          window.location.href = `mailto:${mail}?subject=${subject}&body=${body}`;
+        });
+      }
+    })();
+
+    (function() {
+      const modal = document.getElementById('candidate-modal');
+      const modalBody = modal ? modal.querySelector('.modal-body') : null;
+      const closeBtn = modal ? modal.querySelector('.modal-close') : null;
+      const cards = Array.from(document.querySelectorAll('.candidate'));
+      if (!modal || !modalBody || !closeBtn) return;
+
+      const openModal = (card) => {
+        const clone = card.cloneNode(true);
+        clone.classList.remove('candidate');
+        clone.classList.add('candidate-detail');
+        clone.removeAttribute('tabindex');
+        modalBody.innerHTML = '';
+        modalBody.appendChild(clone);
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      };
+
+      const closeModal = () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalBody.innerHTML = '';
+        document.body.style.overflow = '';
+      };
+
+      cards.forEach((card) => {
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('click', () => openModal(card));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(card);
+          }
+        });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>
