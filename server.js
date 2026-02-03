@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const ROOT = __dirname;
+const ROOT = path.resolve(__dirname); // Ensure absolute path
 
 const mimeByExt = {
   '.html': 'text/html; charset=utf-8',
@@ -22,9 +22,35 @@ const mimeByExt = {
 };
 
 const server = http.createServer((req, res) => {
-  const urlPath = decodeURIComponent(req.url.split('?')[0]);
-  const safePath = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, '');
-  const filePath = path.join(ROOT, safePath === '/' ? 'index.html' : safePath);
+  // 1. Only allow GET and HEAD requests
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.writeHead(405, { 'Content-Type': 'text/plain' });
+    res.end('Method Not Allowed');
+    return;
+  }
+
+  let urlPath;
+  try {
+    // 2. CRITICAL FIX: Wrap decoding in try-catch to prevent URIError crashes
+    urlPath = decodeURIComponent(req.url.split('?')[0]);
+  } catch (err) {
+    // If URL is malformed, return 400 Bad Request instead of crashing
+    console.error(`[Error] Malformed URL from ${req.socket.remoteAddress}`);
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    res.end('Bad Request');
+    return;
+  }
+
+  // 3. Prevent Directory Traversal (escaping the root)
+  // Resolve the full path and ensure it still starts with the ROOT directory
+  const safeSuffix = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
+  const filePath = path.join(ROOT, safeSuffix === '/' ? 'index.html' : safeSuffix);
+
+  if (!filePath.startsWith(ROOT)) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('Forbidden');
+    return;
+  }
 
   fs.stat(filePath, (err, stat) => {
     if (err || !stat.isFile()) {
@@ -32,13 +58,36 @@ const server = http.createServer((req, res) => {
       res.end('Not found');
       return;
     }
+
     const ext = path.extname(filePath).toLowerCase();
     const type = mimeByExt[ext] || 'application/octet-stream';
+    
     res.writeHead(200, { 'Content-Type': type });
-    fs.createReadStream(filePath).pipe(res);
+
+    // 4. Handle Stream Errors
+    // If the client disconnects or the file read fails, this prevents a crash
+    const stream = fs.createReadStream(filePath);
+    
+    stream.on('error', (streamErr) => {
+        console.error(`[Error] Stream error: ${streamErr.message}`);
+        if (!res.headersSent) {
+            res.writeHead(500);
+            res.end('Internal Server Error');
+        } else {
+            res.end();
+        }
+    });
+
+    stream.pipe(res);
   });
+});
+
+// 5. Handle Server-level errors (e.g., port already in use)
+server.on('error', (err) => {
+    console.error(`[Fatal] Server error: ${err.message}`);
 });
 
 server.listen(PORT, () => {
   console.log(`Server running on http://0.0.0.0:${PORT}`);
+  console.log(`Serving files from: ${ROOT}`);
 });
