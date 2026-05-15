@@ -12,7 +12,7 @@
       --blue: #143b79;
       --mid-blue: #1f5aa6;
       --navy: #0b1f3a;
-      --gold: #f2b705;
+      --gold: #E1CF35;
       --sand: #f7f2e7;
       --text: #0b1f3a;
       --muted: #4a5a73;
@@ -227,13 +227,32 @@
       letter-spacing: 0.02em;
     }
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    /* Highlight current Gemeinderat members: stronger visible frame */
+    .candidate.gemeinderat {
+      border: 3px solid var(--gold);
+      box-shadow: 0 18px 36px rgba(242,183,5,0.12);
+      background: #fff;
+    }
+    .candidate.gemeinderat .avatar img { object-fit: cover; }
     .cand-meta .name {
       font-weight: 700;
       color: var(--text);
       display: flex;
-      gap: 10px;
-      align-items: center;
+      gap: 8px;
+      align-items: baseline;
       flex-wrap: wrap;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .name .role {
+      background: var(--gold);
+      color: #0b1f3a;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      flex-shrink: 0;
     }
     .tag {
       background: var(--blue);
@@ -242,18 +261,22 @@
       border-radius: 20px;
       font-size: 12px;
       letter-spacing: 0.02em;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      flex-shrink: 0;
     }
     .badge {
-      background: #fcefc3;
-      color: #8a5a00;
+      background: var(--sand);
+      color: var(--text);
       padding: 4px 8px;
       border-radius: 10px;
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.01em;
+      display: inline-block;
+      margin: 0; /* align like normal candidates */
     }
     .detail { color: var(--muted); font-size: 14px; line-height: 1.4; }
+    .name + .detail { margin-bottom: 8px; }
     .cta {
       text-align: center;
       background: linear-gradient(145deg, var(--blue), var(--mid-blue));
@@ -375,10 +398,10 @@
   <header class="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="brand">
-          <img loading="lazy" src="images/Logo.jpeg" alt="JBO Logo">
-          <span>Junge B&uuml;rger Offingen &middot; Kommunalwahl 2026</span>
-        </div>
+                <div class="brand">
+                  <img loading="lazy" src="images/Logo.jpeg" alt="JBO Logo">
+                  <span>Junge B&uuml;rger Offingen</span>
+                </div>
         <h1>Zukunft w&auml;hlen. Heimat gestalten.</h1>
         <p>Wir stehen f&uuml;r eine junge, verbindende Kommunalpolitik in Offingen: transparent, l&ouml;sungsorientiert und nah an euren Anliegen.</p>
         <div class="hero-actions">
@@ -447,12 +470,12 @@
 
     <section class="section" id="team">
       <h2>Unsere Liste f&uuml;r Offingen</h2>
-      <p>Alter, Beruf, Engagement und Listenplatz auf einen Blick.</p>
+      <p>Alter, Beruf, Engagement und Listenplatz auf einen Blick. Seit Mai 2026 vertreten Michael Olah und Jonas Süß die Liste als Gemeinderatsmitglieder.</p>
       <div class="team-grid">
-        <div class="candidate">
+        <div class="candidate gemeinderat">
           <div class="avatar"><img loading="lazy" src="images/OlahMichael.png" alt="Michael Olah"></div>
           <div class="cand-meta">
-            <div class="name">Michael Olah <span class="tag">LP1</span></div>
+            <div class="name">Michael Olah <span class="tag">LP1</span> <span class="role">Gemeinderat</span></div>
             <div class="detail"><span class="badge">38 Jahre</span></div>
             <div class="detail">verheiratet, zwei Kinder</div>
             <div class="detail">Projektleiter IT, M.Sc.</div>
@@ -492,10 +515,10 @@
             <div class="detail">TSV Offingen Abt. Fu&szlig;ball</div>
           </div>
         </div>
-        <div class="candidate">
+        <div class="candidate gemeinderat">
           <div class="avatar"><img loading="lazy" src="images/Su╠ê├ƒJonas.png" alt="Jonas S&uuml;&szlig;"></div>
           <div class="cand-meta">
-            <div class="name">Jonas S&uuml;&szlig; <span class="tag">LP5</span></div>
+            <div class="name">Jonas S&uuml;&szlig; <span class="tag">LP5</span> <span class="role">Gemeinderat</span></div>
             <div class="detail"><span class="badge">25 Jahre</span></div>
             <div class="detail">ledig</div>
             <div class="detail">Landwirt</div>
