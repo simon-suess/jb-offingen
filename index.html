@@ -641,6 +641,14 @@
       </div>
     </section>
 
+    <section class="section" id="termine">
+      <h2>Unsere Termine</h2>
+      <p>Triff uns vor Ort und komm mit uns ins Gespräch.</p>
+      <div class="grid-two" id="termine-container">
+        <p style="color: var(--muted);">Termine werden geladen...</p>
+      </div>
+    </section>
+
     <section class="section">
       <h2 id="feedback">Deine Idee f&uuml;r Offingen</h2>
       <p>Schick uns deine Anregungen &ndash; wir bringen sie in die Arbeit ein.</p>
@@ -732,6 +740,97 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
       });
+    })();
+  </script>
+  <script>
+    (async function() {
+      const SHEET_TSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJp8O2z-ALcQG9ggMrL7RVoZ2rIRrr6dl0NHpGoHE-aqzF0xavEKLtVvS3bjbfBPt_dt4YVdXcNJc_/pub?gid=0&single=true&output=tsv';
+      const container = document.getElementById('termine-container');
+
+      if (!container) return;
+
+      try {
+        const response = await fetch(SHEET_TSV_URL);
+        const data = await response.text();
+
+        const rows = data.split('\n').slice(1).filter(row => row.trim() !== '');
+        
+        const heute = new Date();
+        heute.setHours(0, 0, 0, 0);
+
+        const aktuelleTermine = [];
+        const vergangeneTermine = [];
+
+        rows.forEach(row => {
+          const cols = row.split('\t').map(s => s.trim());
+          if (cols.length < 3 || !cols[0]) return;
+
+          const datumStr = cols[0];
+          const terminDatum = new Date(datumStr);
+          
+          const terminObj = {
+            datum: terminDatum,
+            zeit: cols[1] || '',
+            titel: cols[2] || '',
+            icon: cols[3] || '📅'
+          };
+
+          if (terminDatum >= heute) {
+            aktuelleTermine.push(terminObj);
+          } else {
+            vergangeneTermine.push(terminObj);
+          }
+        });
+
+        aktuelleTermine.sort((a, b) => a.datum - b.datum);
+        vergangeneTermine.sort((a, b) => b.datum - a.datum);
+
+        let html = '';
+
+        html += `<div class="card">
+                  <h3>Aktuelle Termine</h3>
+                  <ul class="list">`;
+        if (aktuelleTermine.length === 0) {
+          html += `<li><span class="icon">ℹ️</span><span>Aktuell sind keine Termine geplant.</span></li>`;
+        } else {
+          aktuelleTermine.forEach(t => {
+            const datumFormatiert = t.datum.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+            html += `<li>
+                      <span class="icon">${t.icon}</span>
+                      <span>
+                        <strong>${t.titel}</strong><br>
+                        <span class="badge" style="margin-top: 4px;">${datumFormatiert}${t.zeit ? ', ' + t.zeit : ''}</span>
+                      </span>
+                    </li>`;
+          });
+        }
+        html += `</ul></div>`;
+
+        html += `<div class="card" style="opacity: 0.75;">
+                  <h3>Vergangene Termine</h3>
+                  <ul class="list">`;
+        if (vergangeneTermine.length === 0) {
+          html += `<li><span class="icon">ℹ️</span><span class="detail">Noch keine vergangenen Termine.</span></li>`;
+        } else {
+          vergangeneTermine.forEach(t => {
+            const datumFormatiert = t.datum.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+            html += `<li>
+                      <span class="icon">✅</span>
+                      <span>
+                        <strong>${t.titel}</strong><br>
+                        <span class="detail">${datumFormatiert}</span>
+                      </span>
+                    </li>`;
+          });
+        }
+        html += `</ul></div>`;
+
+        container.innerHTML = html;
+
+      } catch (error) {
+        console.error('Fehler beim Laden der Termine:', error);
+        container.innerHTML = '<p style="color: var(--muted);">Termine konnten leider nicht geladen werden.</p>';
+      }
     })();
   </script>
 </body>
