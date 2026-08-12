@@ -13,3 +13,10 @@
 /.idea/
 /.playwright-mcp/
 /plan.md
+
+# Secrets — never commit or serve these
+.env
+.env.*
+*.pem
+*.key
+*.secret

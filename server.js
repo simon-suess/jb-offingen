@@ -41,7 +41,15 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 3. Prevent Directory Traversal (escaping the root)
+  // 3. Block dotfiles and hidden directories (e.g. .git, .env, .well-known)
+  // Reject any path segment that starts with a dot
+  if (urlPath.split(/[\\/]/).some((seg) => seg.startsWith('.'))) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('Forbidden');
+    return;
+  }
+
+  // 4. Prevent Directory Traversal (escaping the root)
   // Resolve the full path and ensure it still starts with the ROOT directory
   const safeSuffix = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
   const filePath = path.join(ROOT, safeSuffix === '/' ? 'index.html' : safeSuffix);
@@ -64,7 +72,7 @@ const server = http.createServer((req, res) => {
     
     res.writeHead(200, { 'Content-Type': type });
 
-    // 4. Handle Stream Errors
+    // 5. Handle Stream Errors
     // If the client disconnects or the file read fails, this prevents a crash
     const stream = fs.createReadStream(filePath);
     
@@ -82,12 +90,12 @@ const server = http.createServer((req, res) => {
   });
 });
 
-// 5. Handle Server-level errors (e.g., port already in use)
+// 6. Handle Server-level errors (e.g., port already in use)
 server.on('error', (err) => {
     console.error(`[Fatal] Server error: ${err.message}`);
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running on http://0.0.0.0:${PORT}`);
+server.listen(PORT, '127.0.0.1', () => {
+  console.log(`Server running on http://127.0.0.1:${PORT}`);
   console.log(`Serving files from: ${ROOT}`);
 });

@@ -33,6 +33,12 @@ pm2 restart "jb-offingen.de"
 
 - Do not commit or stage plan files.
 
+## Security
+
+- `server.js` blocks all dotfile paths (`.git`, `.env`, etc.) with 403 — do not remove this check.
+- `nginx-config.txt` mirrors the live config in `/etc/nginx/sites-available/jbo`. After editing, keep both in sync.
+- Never serve `/.git` — the repo history is not a secret and has already been probed by scanners.
+
 ## Smoke test
 
 ```bash
